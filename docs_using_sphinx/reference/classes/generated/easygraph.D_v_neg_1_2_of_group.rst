@@ -1,0 +1,6 @@
+﻿easygraph.D\_v\_neg\_1\_2\_of\_group
+====================================
+
+.. currentmodule:: easygraph
+
+.. autodata:: D_v_neg_1_2_of_group

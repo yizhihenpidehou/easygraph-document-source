@@ -1,13 +1,13 @@
 Graph Classes
 =============
 
-EasyGraph provides four types of graph classes, `Graph`、 `DiGraph`、 `MultiGraph`、 `MultiDiGraph`.
+EasyGraph provides four types of graph classes, `Graph`、 `DiGraph`、 `MultiGraph`、 `MultiDiGraph`、'HyperGraph'
 
 Which graph class should I use?
 ===============================
 
 +----------------+------------+--------------------+------------------------+
-| Networkx Class | Type       | Self-loops allowed | Parallel edges allowed |
+| EasyGraph Class | Type       | Self-loops allowed | Parallel edges allowed |
 +================+============+====================+========================+
 | Graph          | undirected | Yes                | No                     |
 +----------------+------------+--------------------+------------------------+
@@ -17,7 +17,8 @@ Which graph class should I use?
 +----------------+------------+--------------------+------------------------+
 | MultiDiGraph   | directed   | Yes                | Yes                    |
 +----------------+------------+--------------------+------------------------+
-
+| HyperGraph     | undirected | Yes                | No                     |
++----------------+------------+--------------------+------------------------+
 .. toctree::
     :maxdepth: 2
     :caption: Contents
@@ -26,4 +27,6 @@ Which graph class should I use?
     classes/digraph.rst
     classes/MultiDiGraph.rst
     classes/MultiGraph.rst
+    classes/hypergraph.rst
+
     

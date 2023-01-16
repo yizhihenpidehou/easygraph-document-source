@@ -16,6 +16,8 @@ Please feel free to email us at zliek.sh@gmail.com.
 * Yi Sun
 * Zihang Lin
 * Chenhao Cui
+* Xinyuan Chen
+* Bodian Ye
 
 **Advisors**
 

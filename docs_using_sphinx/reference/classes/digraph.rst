@@ -11,7 +11,6 @@ Methods
 -------
 .. autosummary::
     :toctree: generated/
-
     DiGraph.add_edge
     DiGraph.add_edges_from
     DiGraph.add_edges_from_file

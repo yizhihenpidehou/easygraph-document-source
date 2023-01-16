@@ -13,6 +13,8 @@
 import os
 import sys
 sys.path.append(os.path.abspath('sphinxext'))
+sys.path.append("/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages")
+
 print(sys.path)
 
 # -- Project information -----------------------------------------------------
@@ -22,7 +24,7 @@ copyright = '2020-2022, Mobile Systems and Networking Group, Fudan University'
 author = 'Mobile Systems and Networking Group, Fudan University'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2a38'
+release = '0.2a40'
 
 
 # -- General configuration ---------------------------------------------------
@@ -64,7 +66,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 latex_engine = "xelatex"
 # The paper size ('letter' or 'a4').
 latex_paper_size = "letter"
-
+autoclass_content = 'class'
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for

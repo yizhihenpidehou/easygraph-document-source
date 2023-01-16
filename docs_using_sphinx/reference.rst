@@ -28,4 +28,6 @@ methods in the same platform.
     reference/centrality.rst
     reference/graph_generator.rst
     reference/not_sorted.rst
+    reference/nn.rst
+    reference/model.rst
 

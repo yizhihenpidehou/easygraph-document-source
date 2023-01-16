@@ -1,0 +1,1007 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 4.4.0 and Furo 2022.12.07 -->
+        <title>easygraph.readwrite.graphml module - EasyGraph 0.2</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my_theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">EasyGraph 0.2</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">EasyGraph 0.2</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example.html">Example</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/classes.html">Graph Classes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/classes.html#which-graph-class-should-i-use">Which graph class should I use?</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/graph.html">Undirected Graph</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_edge.html">easygraph.Graph.add_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_edges_from.html">easygraph.Graph.add_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_edges_from_file.html">easygraph.Graph.add_edges_from_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_node.html">easygraph.Graph.add_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_nodes_from.html">easygraph.Graph.add_nodes_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_weighted_edge.html">easygraph.Graph.add_weighted_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.adj.html">easygraph.Graph.adj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.all_neighbors.html">easygraph.Graph.all_neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.copy.html">easygraph.Graph.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.degree.html">easygraph.Graph.degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.edges.html">easygraph.Graph.edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.ego_subgraph.html">easygraph.Graph.ego_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.has_edge.html">easygraph.Graph.has_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.has_node.html">easygraph.Graph.has_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.is_directed.html">easygraph.Graph.is_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.is_multigraph.html">easygraph.Graph.is_multigraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.name.html">easygraph.Graph.name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.neighbors.html">easygraph.Graph.neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.nodes.html">easygraph.Graph.nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.nodes_subgraph.html">easygraph.Graph.nodes_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.number_of_edges.html">easygraph.Graph.number_of_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.number_of_nodes.html">easygraph.Graph.number_of_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.remove_edge.html">easygraph.Graph.remove_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.remove_node.html">easygraph.Graph.remove_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.remove_nodes.html">easygraph.Graph.remove_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.size.html">easygraph.Graph.size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.to_index_node_graph.html">easygraph.Graph.to_index_node_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/classes/digraph.html">Directed Graph</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/MultiDiGraph.html">MultiDiGraph</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_edge.html">easygraph.MultiDiGraph.add_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_edges_from.html">easygraph.MultiDiGraph.add_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_edges_from_file.html">easygraph.MultiDiGraph.add_edges_from_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_node.html">easygraph.MultiDiGraph.add_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_nodes_from.html">easygraph.MultiDiGraph.add_nodes_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_weighted_edge.html">easygraph.MultiDiGraph.add_weighted_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.adj.html">easygraph.MultiDiGraph.adj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.all_neighbors.html">easygraph.MultiDiGraph.all_neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.copy.html">easygraph.MultiDiGraph.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.degree.html">easygraph.MultiDiGraph.degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.edges.html">easygraph.MultiDiGraph.edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.ego_subgraph.html">easygraph.MultiDiGraph.ego_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.get_edge_data.html">easygraph.MultiDiGraph.get_edge_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.has_edge.html">easygraph.MultiDiGraph.has_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.has_node.html">easygraph.MultiDiGraph.has_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.in_degree.html">easygraph.MultiDiGraph.in_degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.in_edges.html">easygraph.MultiDiGraph.in_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.is_directed.html">easygraph.MultiDiGraph.is_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.is_multigraph.html">easygraph.MultiDiGraph.is_multigraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.name.html">easygraph.MultiDiGraph.name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.neighbors.html">easygraph.MultiDiGraph.neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.new_edge_key.html">easygraph.MultiDiGraph.new_edge_key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.nodes.html">easygraph.MultiDiGraph.nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.nodes_subgraph.html">easygraph.MultiDiGraph.nodes_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.number_of_edges.html">easygraph.MultiDiGraph.number_of_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.number_of_nodes.html">easygraph.MultiDiGraph.number_of_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.out_degree.html">easygraph.MultiDiGraph.out_degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.out_edges.html">easygraph.MultiDiGraph.out_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.predecessors.html">easygraph.MultiDiGraph.predecessors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_edge.html">easygraph.MultiDiGraph.remove_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_edges_from.html">easygraph.MultiDiGraph.remove_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_node.html">easygraph.MultiDiGraph.remove_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_nodes.html">easygraph.MultiDiGraph.remove_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.reverse.html">easygraph.MultiDiGraph.reverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.size.html">easygraph.MultiDiGraph.size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.successors.html">easygraph.MultiDiGraph.successors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.to_directed.html">easygraph.MultiDiGraph.to_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.to_index_node_graph.html">easygraph.MultiDiGraph.to_index_node_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.to_undirected.html">easygraph.MultiDiGraph.to_undirected</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/MultiGraph.html">MultiGraph</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_edge.html">easygraph.MultiGraph.add_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_edges_from.html">easygraph.MultiGraph.add_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_edges_from_file.html">easygraph.MultiGraph.add_edges_from_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_node.html">easygraph.MultiGraph.add_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_nodes_from.html">easygraph.MultiGraph.add_nodes_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_weighted_edge.html">easygraph.MultiGraph.add_weighted_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.adj.html">easygraph.MultiGraph.adj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.all_neighbors.html">easygraph.MultiGraph.all_neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.copy.html">easygraph.MultiGraph.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.degree.html">easygraph.MultiGraph.degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.edges.html">easygraph.MultiGraph.edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.ego_subgraph.html">easygraph.MultiGraph.ego_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.get_edge_data.html">easygraph.MultiGraph.get_edge_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.has_edge.html">easygraph.MultiGraph.has_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.has_node.html">easygraph.MultiGraph.has_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.is_directed.html">easygraph.MultiGraph.is_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.is_multigraph.html">easygraph.MultiGraph.is_multigraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.name.html">easygraph.MultiGraph.name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.neighbors.html">easygraph.MultiGraph.neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.new_edge_key.html">easygraph.MultiGraph.new_edge_key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.nodes.html">easygraph.MultiGraph.nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.nodes_subgraph.html">easygraph.MultiGraph.nodes_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.number_of_edges.html">easygraph.MultiGraph.number_of_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.number_of_nodes.html">easygraph.MultiGraph.number_of_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_edge.html">easygraph.MultiGraph.remove_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_edges_from.html">easygraph.MultiGraph.remove_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_node.html">easygraph.MultiGraph.remove_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_nodes.html">easygraph.MultiGraph.remove_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.size.html">easygraph.MultiGraph.size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.to_directed.html">easygraph.MultiGraph.to_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.to_index_node_graph.html">easygraph.MultiGraph.to_index_node_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/hypergraph.html">Hypergraph</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.remove_group.html">easygraph.remove_group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.remove_hyperedges.html">easygraph.remove_hyperedges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/community.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.modularity.modularity.html">easygraph.functions.community.modularity.modularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.modularity_max_detection.greedy_modularity_communities.html">easygraph.functions.community.modularity_max_detection.greedy_modularity_communities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.LPA.html">easygraph.functions.community.LPA.LPA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.SLPA.html">easygraph.functions.community.LPA.SLPA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.HANP.html">easygraph.functions.community.LPA.HANP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.BMLPA.html">easygraph.functions.community.LPA.BMLPA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.motif.enumerate_subgraph.html">easygraph.functions.community.motif.enumerate_subgraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.motif.random_enumerate_subgraph.html">easygraph.functions.community.motif.random_enumerate_subgraph</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/components.html">Components</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.is_connected.html">easygraph.functions.components.connected.is_connected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.number_connected_components.html">easygraph.functions.components.connected.number_connected_components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.connected_components.html">easygraph.functions.components.connected.connected_components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.connected_component_of_node.html">easygraph.functions.components.connected.connected_component_of_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.is_biconnected.html">easygraph.functions.components.biconnected.is_biconnected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.biconnected_components.html">easygraph.functions.components.biconnected.biconnected_components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.generator_biconnected_components_nodes.html">easygraph.functions.components.biconnected.generator_biconnected_components_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.generator_biconnected_components_edges.html">easygraph.functions.components.biconnected.generator_biconnected_components_edges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.generator_articulation_points.html">easygraph.functions.components.biconnected.generator_articulation_points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/path.html">Path</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/graph_embedding.html">Graph Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.deepwalk.deepwalk.html">easygraph.functions.graph_embedding.deepwalk.deepwalk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.node2vec.node2vec.html">easygraph.functions.graph_embedding.node2vec.node2vec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.line.LINE.html">easygraph.functions.graph_embedding.line.LINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.NOBE.NOBE.html">easygraph.functions.graph_embedding.NOBE.NOBE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.NOBE.NOBE_GA.html">easygraph.functions.graph_embedding.NOBE.NOBE_GA</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/structural_hole_spanners.html">Structural Hole Spanners</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.HIS.get_structural_holes_HIS.html">easygraph.functions.structural_holes.HIS.get_structural_holes_HIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.MaxD.get_structural_holes_MaxD.html">easygraph.functions.structural_holes.MaxD.get_structural_holes_MaxD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.AP_Greedy.common_greedy.html">easygraph.functions.structural_holes.AP_Greedy.common_greedy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.AP_Greedy.AP_Greedy.html">easygraph.functions.structural_holes.AP_Greedy.AP_Greedy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.ICC.ICC.html">easygraph.functions.structural_holes.ICC.ICC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.ICC.BICC.html">easygraph.functions.structural_holes.ICC.BICC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.ICC.AP_BICC.html">easygraph.functions.structural_holes.ICC.AP_BICC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.HAM.get_structural_holes_HAM.html">easygraph.functions.structural_holes.HAM.get_structural_holes_HAM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.NOBE.NOBE_SH.html">easygraph.functions.structural_holes.NOBE.NOBE_SH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.NOBE.NOBE_GA_SH.html">easygraph.functions.structural_holes.NOBE.NOBE_GA_SH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.weakTie.weakTie.html">easygraph.functions.structural_holes.weakTie.weakTie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.weakTie.weakTieLocal.html">easygraph.functions.structural_holes.weakTie.weakTieLocal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.effective_size.html">easygraph.functions.structural_holes.evaluation.effective_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.efficiency.html">easygraph.functions.structural_holes.evaluation.efficiency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.constraint.html">easygraph.functions.structural_holes.evaluation.constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.hierarchy.html">easygraph.functions.structural_holes.evaluation.hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/datasets.html">Datasets</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/drawing.html">Drawing</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.drawing.draw_SHS_center.html">easygraph.functions.drawing.drawing.draw_SHS_center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.drawing.draw_SHS_center_kk.html">easygraph.functions.drawing.drawing.draw_SHS_center_kk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.drawing.draw_kamada_kawai.html">easygraph.functions.drawing.drawing.draw_kamada_kawai</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Followers.html">easygraph.functions.drawing.plot.plot_Followers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Connected_Communities.html">easygraph.functions.drawing.plot.plot_Connected_Communities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Betweenness_Centrality.html">easygraph.functions.drawing.plot.plot_Betweenness_Centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Neighborhood_Followers.html">easygraph.functions.drawing.plot.plot_Neighborhood_Followers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.random_position.html">easygraph.functions.drawing.positioning.random_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.circular_position.html">easygraph.functions.drawing.positioning.circular_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.shell_position.html">easygraph.functions.drawing.positioning.shell_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.rescale_position.html">easygraph.functions.drawing.positioning.rescale_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.kamada_kawai_layout.html">easygraph.functions.drawing.positioning.kamada_kawai_layout</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/readwrite/index.html">Reading and writing graphs</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/gexf.html">GEXF</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.read_gexf.html">easygraph.readwrite.gexf.read_gexf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.write_gexf.html">easygraph.readwrite.gexf.write_gexf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.generate_gexf.html">easygraph.readwrite.gexf.generate_gexf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.relabel_gexf_graph.html">easygraph.readwrite.gexf.relabel_gexf_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/gml.html">GML</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.read_gml.html">easygraph.readwrite.gml.read_gml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.write_gml.html">easygraph.readwrite.gml.write_gml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.parse_gml.html">easygraph.readwrite.gml.parse_gml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.generate_gml.html">easygraph.readwrite.gml.generate_gml</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/graphml.html">GraphML</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.read_graphml.html">easygraph.readwrite.graphml.read_graphml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.write_graphml.html">easygraph.readwrite.graphml.write_graphml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.generate_graphml.html">easygraph.readwrite.graphml.generate_graphml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.parse_graphml.html">easygraph.readwrite.graphml.parse_graphml</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/graphviz.html">graphviz</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.write_dot.html">easygraph.readwrite.graphviz.write_dot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.read_dot.html">easygraph.readwrite.graphviz.read_dot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.from_agraph.html">easygraph.readwrite.graphviz.from_agraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.to_agraph.html">easygraph.readwrite.graphviz.to_agraph</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/ucinet.html">Ucinet</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.generate_ucinet.html">easygraph.readwrite.ucinet.generate_ucinet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.read_ucinet.html">easygraph.readwrite.ucinet.read_ucinet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.parse_ucinet.html">easygraph.readwrite.ucinet.parse_ucinet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.write_ucinet.html">easygraph.readwrite.ucinet.write_ucinet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/centrality.html">Centrality</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.betweenness.betweenness_centrality.html">easygraph.functions.centrality.betweenness.betweenness_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.degree.degree_centrality.html">easygraph.functions.centrality.degree.degree_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.degree.in_degree_centrality.html">easygraph.functions.centrality.degree.in_degree_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.degree.out_degree_centrality.html">easygraph.functions.centrality.degree.out_degree_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.flowbetweenness.flowbetweenness_centrality.html">easygraph.functions.centrality.flowbetweenness.flowbetweenness_centrality</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/graph_generator.html">Graph Generator</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_M.html">easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_M</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_P.html">easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_P</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.fast_erdos_renyi_P.html">easygraph.functions.graph_generator.RandomNetwork.fast_erdos_renyi_P</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.WS_Random.html">easygraph.functions.graph_generator.RandomNetwork.WS_Random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.classic.empty_graph.html">easygraph.functions.graph_generator.classic.empty_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.classic.path_graph.html">easygraph.functions.graph_generator.classic.path_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.classic.complete_graph.html">easygraph.functions.graph_generator.classic.complete_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/not_sorted.html">Not Sorted</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/nn.html">NN</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.common.html">easygraph.nn.convs.common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hgnn_conv.html">easygraph.nn.convs.hypergraphs.hgnn_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.dhcf_conv.html">easygraph.nn.convs.hypergraphs.dhcf_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hgnnp_conv.html">easygraph.nn.convs.hypergraphs.hgnnp_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hnhn_conv.html">easygraph.nn.convs.hypergraphs.hnhn_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hypergcn_conv.html">easygraph.nn.convs.hypergraphs.hypergcn_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.unignn_conv.html">easygraph.nn.convs.hypergraphs.unignn_conv</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/model.html">Model</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hgnn.html">easygraph.model.hypergraphs.hgnn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hgnnp.html">easygraph.model.hypergraphs.hgnnp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hnhn.html">easygraph.model.hypergraphs.hnhn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hypergcn.html">easygraph.model.hypergraphs.hypergcn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.dhcf.html">easygraph.model.hypergraphs.dhcf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.unignn.html">easygraph.model.hypergraphs.unignn</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Tutorial Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributorGuide.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sourcecode.html">Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutus.html">About Us</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-easygraph.readwrite.graphml">
+<span id="easygraph-readwrite-graphml-module"></span><h1>easygraph.readwrite.graphml module<a class="headerlink" href="#module-easygraph.readwrite.graphml" title="Permalink to this headline"></a></h1>
+<p>Read and write graphs in GraphML format.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This parser uses the standard xml library present in Python, which is
+insecure - see <span class="xref std std-doc">library/xml</span> for additional information.
+Only parse GraphML files you trust.</p>
+</div>
+<p>This implementation does not support mixed graphs (directed and unidirected
+edges together), hyperedges, nested graphs, or ports.</p>
+<p>“GraphML is a comprehensive and easy-to-use file format for graphs. It
+consists of a language core to describe the structural properties of a
+graph and a flexible extension mechanism to add application-specific
+data. Its main features include support of</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>directed, undirected, and mixed graphs,</p></li>
+<li><p>hypergraphs,</p></li>
+<li><p>hierarchical graphs,</p></li>
+<li><p>graphical representations,</p></li>
+<li><p>references to external data,</p></li>
+<li><p>application-specific attribute data, and</p></li>
+<li><p>light-weight parsers.</p></li>
+</ul>
+</div></blockquote>
+<p>Unlike many other file formats for graphs, GraphML does not use a
+custom syntax. Instead, it is based on XML and hence ideally suited as
+a common denominator for all kinds of services generating, archiving,
+or processing graphs.”</p>
+<p><a class="reference external" href="http://graphml.graphdrawing.org/">http://graphml.graphdrawing.org/</a></p>
+<section id="format">
+<h2>Format<a class="headerlink" href="#format" title="Permalink to this headline"></a></h2>
+<p>GraphML is an XML format.  See
+<a class="reference external" href="http://graphml.graphdrawing.org/specification.html">http://graphml.graphdrawing.org/specification.html</a> for the specification and
+<a class="reference external" href="http://graphml.graphdrawing.org/primer/graphml-primer.html">http://graphml.graphdrawing.org/primer/graphml-primer.html</a>
+for examples.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">GraphMLReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_type=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_key_type=&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_multigraph=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLReader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">easygraph.readwrite.graphml.GraphML</span></code></p>
+<p>Read a GraphML document.  Produces EasyGraph graph objects.</p>
+<p class="rubric">Methods</p>
+<div class="table-wrapper longtable docutils container">
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>([path, string])</p></td>
+<td><p>Call self as a function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLReader.add_edge" title="easygraph.readwrite.graphml.GraphMLReader.add_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edge</span></code></a>(G, edge_element, graphml_keys)</p></td>
+<td><p>Add an edge to the graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLReader.add_node" title="easygraph.readwrite.graphml.GraphMLReader.add_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_node</span></code></a>(G, node_xml, graphml_keys, defaults)</p></td>
+<td><p>Add a node to the graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLReader.decode_data_elements" title="easygraph.readwrite.graphml.GraphMLReader.decode_data_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decode_data_elements</span></code></a>(graphml_keys, obj_xml)</p></td>
+<td><p>Use the key information to decode the data XML if present.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLReader.find_graphml_keys" title="easygraph.readwrite.graphml.GraphMLReader.find_graphml_keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_graphml_keys</span></code></a>(graph_element)</p></td>
+<td><p>Extracts all the keys and key defaults from the xml.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_xml_type</span></code>(key)</p></td>
+<td><p>Wrapper around the xml_type dict that raises a more informative exception message when a user attempts to use data of a type not supported by GraphML.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>construct_types</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>make_graph</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLReader.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphml_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLReader.add_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLReader.add_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Add an edge to the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLReader.add_node">
+<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_xml</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphml_keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLReader.add_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLReader.add_node" title="Permalink to this definition"></a></dt>
+<dd><p>Add a node to the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLReader.decode_data_elements">
+<span class="sig-name descname"><span class="pre">decode_data_elements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphml_keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj_xml</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLReader.decode_data_elements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLReader.decode_data_elements" title="Permalink to this definition"></a></dt>
+<dd><p>Use the key information to decode the data XML if present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLReader.find_graphml_keys">
+<span class="sig-name descname"><span class="pre">find_graphml_keys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLReader.find_graphml_keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLReader.find_graphml_keys" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts all the keys and key defaults from the xml.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLReader.make_graph">
+<span class="sig-name descname"><span class="pre">make_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_xml</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphml_keys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">G</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLReader.make_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLReader.make_graph" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">GraphMLWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prettyprint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_numeric_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_key_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_id_from_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">easygraph.readwrite.graphml.GraphML</span></code></p>
+<p class="rubric">Methods</p>
+<div class="table-wrapper longtable docutils container">
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLWriter.add_attributes" title="easygraph.readwrite.graphml.GraphMLWriter.add_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_attributes</span></code></a>(scope, xml_obj, data, default)</p></td>
+<td><p>Appends attribute data to edges or nodes, and stores type information to be added later.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLWriter.add_data" title="easygraph.readwrite.graphml.GraphMLWriter.add_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_data</span></code></a>(name, element_type, value[, scope, ...])</p></td>
+<td><p>Make a data element for an edge or a node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLWriter.add_graph_element" title="easygraph.readwrite.graphml.GraphMLWriter.add_graph_element"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_graph_element</span></code></a>(G)</p></td>
+<td><p>Serialize graph G in GraphML to the stream.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLWriter.add_graphs" title="easygraph.readwrite.graphml.GraphMLWriter.add_graphs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_graphs</span></code></a>(graph_list)</p></td>
+<td><p>Add many graphs to this GraphML document.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.readwrite.graphml.GraphMLWriter.attr_type" title="easygraph.readwrite.graphml.GraphMLWriter.attr_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attr_type</span></code></a>(name, scope, value)</p></td>
+<td><p>Infer the attribute type of data named name.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_xml_type</span></code>(key)</p></td>
+<td><p>Wrapper around the xml_type dict that raises a more informative exception message when a user attempts to use data of a type not supported by GraphML.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>add_edges</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>add_nodes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>construct_types</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>dump</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_key</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>indent</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.add_attributes">
+<span class="sig-name descname"><span class="pre">add_attributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xml_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.add_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.add_attributes" title="Permalink to this definition"></a></dt>
+<dd><p>Appends attribute data to edges or nodes, and stores type information
+to be added later. See add_graph_element.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.add_data">
+<span class="sig-name descname"><span class="pre">add_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.add_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.add_data" title="Permalink to this definition"></a></dt>
+<dd><p>Make a data element for an edge or a node. Keep a log of the
+type in the keys table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.add_edges">
+<span class="sig-name descname"><span class="pre">add_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph_element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.add_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.add_edges" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.add_graph_element">
+<span class="sig-name descname"><span class="pre">add_graph_element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.add_graph_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.add_graph_element" title="Permalink to this definition"></a></dt>
+<dd><p>Serialize graph G in GraphML to the stream.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.add_graphs">
+<span class="sig-name descname"><span class="pre">add_graphs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.add_graphs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.add_graphs" title="Permalink to this definition"></a></dt>
+<dd><p>Add many graphs to this GraphML document.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.add_nodes">
+<span class="sig-name descname"><span class="pre">add_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph_element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.add_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.add_nodes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.attr_type">
+<span class="sig-name descname"><span class="pre">attr_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.attr_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.attr_type" title="Permalink to this definition"></a></dt>
+<dd><p>Infer the attribute type of data named name. Currently this only
+supports inference of numeric types.</p>
+<p>If self.infer_numeric_types is false, type is used. Otherwise, pick the
+most general of types found across all values with name and scope. This
+means edges with data named ‘weight’ are treated separately from nodes
+with data named ‘weight’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.dump" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.get_key">
+<span class="sig-name descname"><span class="pre">get_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.get_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.get_key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.GraphMLWriter.indent">
+<span class="sig-name descname"><span class="pre">indent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#GraphMLWriter.indent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.GraphMLWriter.indent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.generate_graphml">
+<span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">generate_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prettyprint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_key_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_id_from_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#generate_graphml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.generate_graphml" title="Permalink to this definition"></a></dt>
+<dd><p>Generate GraphML lines for G</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>graph</em>) – A easygraph graph</p></li>
+<li><p><strong>encoding</strong> (<em>string</em><em> (</em><em>optional</em><em>)</em>) – Encoding for text data.</p></li>
+<li><p><strong>prettyprint</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use line breaks and indenting in output XML.</p></li>
+<li><p><strong>named_key_ids</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use attr.name as value for key elements’ id attribute.</p></li>
+<li><p><strong>edge_id_from_attribute</strong> (<em>dict key</em><em> (</em><em>optional</em><em>)</em>) – If provided, the graphml edge id is set by looking up the corresponding
+edge data attribute keyed by this parameter. If <cite>None</cite> or the key does not exist in edge data,
+the edge id is set by the edge key if <cite>G</cite> is a MultiGraph, else the edge id is left unset.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linefeed</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># linefeed =</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">linefeed</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eg</span><span class="o">.</span><span class="n">generate_graphml</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">eg</span><span class="o">.</span><span class="n">generate_graphml</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>  
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This implementation does not support mixed graphs (directed and unidirected
+edges together) hyperedges, nested graphs, or ports.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.parse_graphml">
+<span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">parse_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphml_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_key_type=&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_multigraph=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#parse_graphml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.parse_graphml" title="Permalink to this definition"></a></dt>
+<dd><p>Read graph in GraphML format from string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graphml_string</strong> (<em>string</em>) – String containing graphml information
+(e.g., contents of a graphml file).</p></li>
+<li><p><strong>node_type</strong> (<em>Python type</em><em> (</em><em>default: str</em><em>)</em>) – Convert node ids to this type</p></li>
+<li><p><strong>edge_key_type</strong> (<em>Python type</em><em> (</em><em>default: int</em><em>)</em>) – Convert graphml edge ids to this type. Multigraphs use id as edge key.
+Non-multigraphs add to edge attribute dict with name “id”.</p></li>
+<li><p><strong>force_multigraph</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – If True, return a multigraph with edge keys. If False (the default)
+return a multigraph when multiedges are in the graph.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>graph</strong> – If no parallel edges are found a Graph or DiGraph is returned.
+Otherwise a MultiGraph or MultiDiGraph is returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>EasyGraph graph</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">linefeed</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># linefeed =</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">linefeed</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">eg</span><span class="o">.</span><span class="n">generate_graphml</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">parse_graphml</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Default node and edge attributes are not propagated to each node and edge.
+They can be obtained from <cite>G.graph</cite> and applied to node and edge attributes
+if desired using something like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">default_color</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node_default&quot;</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>  
+<span class="gp">... </span>    <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_color</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">default_color</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;edge_default&quot;</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>  
+<span class="gp">... </span>    <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_color</span>
+</pre></div>
+</div>
+<p>This implementation does not support mixed graphs (directed and unidirected
+edges together), hypergraphs, nested graphs, or ports.</p>
+<p>For multigraphs the GraphML edge “id” will be used as the edge
+key.  If not specified then they “key” attribute will be used.  If
+there is no “key” attribute a default EasyGraph multigraph edge key
+will be provided.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.read_graphml">
+<span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">read_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_type=&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_key_type=&lt;class</span> <span class="pre">'int'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_multigraph=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#read_graphml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.read_graphml" title="Permalink to this definition"></a></dt>
+<dd><p>Read graph in GraphML format from path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>file</em><em> or </em><em>string</em>) – File or filename to write.
+Filenames ending in .gz or .bz2 will be compressed.</p></li>
+<li><p><strong>node_type</strong> (<em>Python type</em><em> (</em><em>default: str</em><em>)</em>) – Convert node ids to this type</p></li>
+<li><p><strong>edge_key_type</strong> (<em>Python type</em><em> (</em><em>default: int</em><em>)</em>) – Convert graphml edge ids to this type. Multigraphs use id as edge key.
+Non-multigraphs add to edge attribute dict with name “id”.</p></li>
+<li><p><strong>force_multigraph</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – If True, return a multigraph with edge keys. If False (the default)
+return a multigraph when multiedges are in the graph.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>graph</strong> – If parallel edges are present or <cite>force_multigraph=True</cite> then
+a MultiGraph or MultiDiGraph is returned. Otherwise a Graph/DiGraph.
+The returned graph is directed if the file indicates it should be.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>EasyGraph graph</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Default node and edge attributes are not propagated to each node and edge.
+They can be obtained from <cite>G.graph</cite> and applied to node and edge attributes
+if desired using something like this:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">default_color</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;node_default&quot;</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>  
+<span class="gp">... </span>    <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_color</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">default_color</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s2">&quot;edge_default&quot;</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>  
+<span class="gp">... </span>    <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_color</span>
+</pre></div>
+</div>
+<p>This implementation does not support mixed graphs (directed and unidirected
+edges together), hypergraphs, nested graphs, or ports.</p>
+<p>For multigraphs the GraphML edge “id” will be used as the edge
+key.  If not specified then they “key” attribute will be used.  If
+there is no “key” attribute a default EasyGraph multigraph edge key
+will be provided.</p>
+<p>Files with the yEd “yfiles” extension can be read. The type of the node’s
+shape is preserved in the <cite>shape_type</cite> node attribute.</p>
+<p>yEd compressed files (“file.graphmlz” extension) can be read by renaming
+the file to “file.graphml.gz”.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.write_graphml">
+<span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">write_graphml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prettyprint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_numeric_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_key_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_id_from_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#easygraph.readwrite.graphml.write_graphml" title="Permalink to this definition"></a></dt>
+<dd><p>Write G in GraphML XML format to path</p>
+<p>This function uses the LXML framework and should be faster than
+the version using the xml library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>graph</em>) – A easygraph graph</p></li>
+<li><p><strong>path</strong> (<em>file</em><em> or </em><em>string</em>) – File or filename to write.
+Filenames ending in .gz or .bz2 will be compressed.</p></li>
+<li><p><strong>encoding</strong> (<em>string</em><em> (</em><em>optional</em><em>)</em>) – Encoding for text data.</p></li>
+<li><p><strong>prettyprint</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use line breaks and indenting in output XML.</p></li>
+<li><p><strong>infer_numeric_types</strong> (<em>boolean</em>) – Determine if numeric types should be generalized.
+For example, if edges have both int and float ‘weight’ attributes,
+we infer in GraphML that both are floats.</p></li>
+<li><p><strong>named_key_ids</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use attr.name as value for key elements’ id attribute.</p></li>
+<li><p><strong>edge_id_from_attribute</strong> (<em>dict key</em><em> (</em><em>optional</em><em>)</em>) – If provided, the graphml edge id is set by looking up the corresponding
+edge data attribute keyed by this parameter. If <cite>None</cite> or the key does not exist in edge data,
+the edge id is set by the edge key if <cite>G</cite> is a MultiGraph, else the edge id is left unset.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eg</span><span class="o">.</span><span class="n">write_graphml_lxml</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;fourpath.graphml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This implementation does not support mixed graphs (directed
+and unidirected edges together) hyperedges, nested graphs, or ports.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.write_graphml_lxml">
+<span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">write_graphml_lxml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prettyprint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_numeric_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_key_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_id_from_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#write_graphml_lxml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.write_graphml_lxml" title="Permalink to this definition"></a></dt>
+<dd><p>Write G in GraphML XML format to path</p>
+<p>This function uses the LXML framework and should be faster than
+the version using the xml library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>graph</em>) – A easygraph graph</p></li>
+<li><p><strong>path</strong> (<em>file</em><em> or </em><em>string</em>) – File or filename to write.
+Filenames ending in .gz or .bz2 will be compressed.</p></li>
+<li><p><strong>encoding</strong> (<em>string</em><em> (</em><em>optional</em><em>)</em>) – Encoding for text data.</p></li>
+<li><p><strong>prettyprint</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use line breaks and indenting in output XML.</p></li>
+<li><p><strong>infer_numeric_types</strong> (<em>boolean</em>) – Determine if numeric types should be generalized.
+For example, if edges have both int and float ‘weight’ attributes,
+we infer in GraphML that both are floats.</p></li>
+<li><p><strong>named_key_ids</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use attr.name as value for key elements’ id attribute.</p></li>
+<li><p><strong>edge_id_from_attribute</strong> (<em>dict key</em><em> (</em><em>optional</em><em>)</em>) – If provided, the graphml edge id is set by looking up the corresponding
+edge data attribute keyed by this parameter. If <cite>None</cite> or the key does not exist in edge data,
+the edge id is set by the edge key if <cite>G</cite> is a MultiGraph, else the edge id is left unset.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eg</span><span class="o">.</span><span class="n">write_graphml_lxml</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;fourpath.graphml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This implementation does not support mixed graphs (directed
+and unidirected edges together) hyperedges, nested graphs, or ports.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easygraph.readwrite.graphml.write_graphml_xml">
+<span class="sig-prename descclassname"><span class="pre">easygraph.readwrite.graphml.</span></span><span class="sig-name descname"><span class="pre">write_graphml_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prettyprint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infer_numeric_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_key_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_id_from_attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/readwrite/graphml.html#write_graphml_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.readwrite.graphml.write_graphml_xml" title="Permalink to this definition"></a></dt>
+<dd><p>Write G in GraphML XML format to path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>graph</em>) – A easygraph graph</p></li>
+<li><p><strong>path</strong> (<em>file</em><em> or </em><em>string</em>) – File or filename to write.
+Filenames ending in .gz or .bz2 will be compressed.</p></li>
+<li><p><strong>encoding</strong> (<em>string</em><em> (</em><em>optional</em><em>)</em>) – Encoding for text data.</p></li>
+<li><p><strong>prettyprint</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use line breaks and indenting in output XML.</p></li>
+<li><p><strong>infer_numeric_types</strong> (<em>boolean</em>) – Determine if numeric types should be generalized.
+For example, if edges have both int and float ‘weight’ attributes,
+we infer in GraphML that both are floats.</p></li>
+<li><p><strong>named_key_ids</strong> (<em>bool</em><em> (</em><em>optional</em><em>)</em>) – If True use attr.name as value for key elements’ id attribute.</p></li>
+<li><p><strong>edge_id_from_attribute</strong> (<em>dict key</em><em> (</em><em>optional</em><em>)</em>) – If provided, the graphml edge id is set by looking up the corresponding
+edge data attribute keyed by this parameter. If <cite>None</cite> or the key does not exist in edge data,
+the edge id is set by the edge key if <cite>G</cite> is a MultiGraph, else the edge id is left unset.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eg</span><span class="o">.</span><span class="n">write_graphml</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="s2">&quot;test.graphml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This implementation does not support mixed graphs (directed
+and unidirected edges together) hyperedges, nested graphs, or ports.</p>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Mobile Systems and Networking Group, Fudan University
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">easygraph.readwrite.graphml module</a><ul>
+<li><a class="reference internal" href="#format">Format</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    </body>
+</html>

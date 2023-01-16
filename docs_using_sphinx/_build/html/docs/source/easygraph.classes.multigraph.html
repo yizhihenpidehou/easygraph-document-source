@@ -1,0 +1,1274 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 4.4.0 and Furo 2022.12.07 -->
+        <title>easygraph.classes.multigraph module - EasyGraph 0.2</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../_static/my_theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">EasyGraph 0.2</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">EasyGraph 0.2</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example.html">Example</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference.html">Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/classes.html">Graph Classes</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/classes.html#which-graph-class-should-i-use">Which graph class should I use?</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/graph.html">Undirected Graph</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_edge.html">easygraph.Graph.add_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_edges_from.html">easygraph.Graph.add_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_edges_from_file.html">easygraph.Graph.add_edges_from_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_node.html">easygraph.Graph.add_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_nodes_from.html">easygraph.Graph.add_nodes_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.add_weighted_edge.html">easygraph.Graph.add_weighted_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.adj.html">easygraph.Graph.adj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.all_neighbors.html">easygraph.Graph.all_neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.copy.html">easygraph.Graph.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.degree.html">easygraph.Graph.degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.edges.html">easygraph.Graph.edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.ego_subgraph.html">easygraph.Graph.ego_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.has_edge.html">easygraph.Graph.has_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.has_node.html">easygraph.Graph.has_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.is_directed.html">easygraph.Graph.is_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.is_multigraph.html">easygraph.Graph.is_multigraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.name.html">easygraph.Graph.name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.neighbors.html">easygraph.Graph.neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.nodes.html">easygraph.Graph.nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.nodes_subgraph.html">easygraph.Graph.nodes_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.number_of_edges.html">easygraph.Graph.number_of_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.number_of_nodes.html">easygraph.Graph.number_of_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.remove_edge.html">easygraph.Graph.remove_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.remove_node.html">easygraph.Graph.remove_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.remove_nodes.html">easygraph.Graph.remove_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.size.html">easygraph.Graph.size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.Graph.to_index_node_graph.html">easygraph.Graph.to_index_node_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/classes/digraph.html">Directed Graph</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/MultiDiGraph.html">MultiDiGraph</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_edge.html">easygraph.MultiDiGraph.add_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_edges_from.html">easygraph.MultiDiGraph.add_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_edges_from_file.html">easygraph.MultiDiGraph.add_edges_from_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_node.html">easygraph.MultiDiGraph.add_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_nodes_from.html">easygraph.MultiDiGraph.add_nodes_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.add_weighted_edge.html">easygraph.MultiDiGraph.add_weighted_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.adj.html">easygraph.MultiDiGraph.adj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.all_neighbors.html">easygraph.MultiDiGraph.all_neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.copy.html">easygraph.MultiDiGraph.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.degree.html">easygraph.MultiDiGraph.degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.edges.html">easygraph.MultiDiGraph.edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.ego_subgraph.html">easygraph.MultiDiGraph.ego_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.get_edge_data.html">easygraph.MultiDiGraph.get_edge_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.has_edge.html">easygraph.MultiDiGraph.has_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.has_node.html">easygraph.MultiDiGraph.has_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.in_degree.html">easygraph.MultiDiGraph.in_degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.in_edges.html">easygraph.MultiDiGraph.in_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.is_directed.html">easygraph.MultiDiGraph.is_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.is_multigraph.html">easygraph.MultiDiGraph.is_multigraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.name.html">easygraph.MultiDiGraph.name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.neighbors.html">easygraph.MultiDiGraph.neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.new_edge_key.html">easygraph.MultiDiGraph.new_edge_key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.nodes.html">easygraph.MultiDiGraph.nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.nodes_subgraph.html">easygraph.MultiDiGraph.nodes_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.number_of_edges.html">easygraph.MultiDiGraph.number_of_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.number_of_nodes.html">easygraph.MultiDiGraph.number_of_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.out_degree.html">easygraph.MultiDiGraph.out_degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.out_edges.html">easygraph.MultiDiGraph.out_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.predecessors.html">easygraph.MultiDiGraph.predecessors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_edge.html">easygraph.MultiDiGraph.remove_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_edges_from.html">easygraph.MultiDiGraph.remove_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_node.html">easygraph.MultiDiGraph.remove_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.remove_nodes.html">easygraph.MultiDiGraph.remove_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.reverse.html">easygraph.MultiDiGraph.reverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.size.html">easygraph.MultiDiGraph.size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.successors.html">easygraph.MultiDiGraph.successors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.to_directed.html">easygraph.MultiDiGraph.to_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.to_index_node_graph.html">easygraph.MultiDiGraph.to_index_node_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiDiGraph.to_undirected.html">easygraph.MultiDiGraph.to_undirected</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/MultiGraph.html">MultiGraph</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_edge.html">easygraph.MultiGraph.add_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_edges_from.html">easygraph.MultiGraph.add_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_edges_from_file.html">easygraph.MultiGraph.add_edges_from_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_node.html">easygraph.MultiGraph.add_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_nodes_from.html">easygraph.MultiGraph.add_nodes_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.add_weighted_edge.html">easygraph.MultiGraph.add_weighted_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.adj.html">easygraph.MultiGraph.adj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.all_neighbors.html">easygraph.MultiGraph.all_neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.copy.html">easygraph.MultiGraph.copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.degree.html">easygraph.MultiGraph.degree</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.edges.html">easygraph.MultiGraph.edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.ego_subgraph.html">easygraph.MultiGraph.ego_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.get_edge_data.html">easygraph.MultiGraph.get_edge_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.has_edge.html">easygraph.MultiGraph.has_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.has_node.html">easygraph.MultiGraph.has_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.is_directed.html">easygraph.MultiGraph.is_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.is_multigraph.html">easygraph.MultiGraph.is_multigraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.name.html">easygraph.MultiGraph.name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.neighbors.html">easygraph.MultiGraph.neighbors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.new_edge_key.html">easygraph.MultiGraph.new_edge_key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.nodes.html">easygraph.MultiGraph.nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.nodes_subgraph.html">easygraph.MultiGraph.nodes_subgraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.number_of_edges.html">easygraph.MultiGraph.number_of_edges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.number_of_nodes.html">easygraph.MultiGraph.number_of_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_edge.html">easygraph.MultiGraph.remove_edge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_edges_from.html">easygraph.MultiGraph.remove_edges_from</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_node.html">easygraph.MultiGraph.remove_node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.remove_nodes.html">easygraph.MultiGraph.remove_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.size.html">easygraph.MultiGraph.size</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.to_directed.html">easygraph.MultiGraph.to_directed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.MultiGraph.to_index_node_graph.html">easygraph.MultiGraph.to_index_node_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/classes/hypergraph.html">Hypergraph</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.remove_group.html">easygraph.remove_group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/classes/generated/easygraph.remove_hyperedges.html">easygraph.remove_hyperedges</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/community.html">Community</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.modularity.modularity.html">easygraph.functions.community.modularity.modularity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.modularity_max_detection.greedy_modularity_communities.html">easygraph.functions.community.modularity_max_detection.greedy_modularity_communities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.LPA.html">easygraph.functions.community.LPA.LPA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.SLPA.html">easygraph.functions.community.LPA.SLPA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.HANP.html">easygraph.functions.community.LPA.HANP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.LPA.BMLPA.html">easygraph.functions.community.LPA.BMLPA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.motif.enumerate_subgraph.html">easygraph.functions.community.motif.enumerate_subgraph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.community.motif.random_enumerate_subgraph.html">easygraph.functions.community.motif.random_enumerate_subgraph</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/components.html">Components</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.is_connected.html">easygraph.functions.components.connected.is_connected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.number_connected_components.html">easygraph.functions.components.connected.number_connected_components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.connected_components.html">easygraph.functions.components.connected.connected_components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.connected.connected_component_of_node.html">easygraph.functions.components.connected.connected_component_of_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.is_biconnected.html">easygraph.functions.components.biconnected.is_biconnected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.biconnected_components.html">easygraph.functions.components.biconnected.biconnected_components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.generator_biconnected_components_nodes.html">easygraph.functions.components.biconnected.generator_biconnected_components_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.generator_biconnected_components_edges.html">easygraph.functions.components.biconnected.generator_biconnected_components_edges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.components.biconnected.generator_articulation_points.html">easygraph.functions.components.biconnected.generator_articulation_points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/path.html">Path</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/graph_embedding.html">Graph Embedding</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.deepwalk.deepwalk.html">easygraph.functions.graph_embedding.deepwalk.deepwalk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.node2vec.node2vec.html">easygraph.functions.graph_embedding.node2vec.node2vec</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.line.LINE.html">easygraph.functions.graph_embedding.line.LINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.NOBE.NOBE.html">easygraph.functions.graph_embedding.NOBE.NOBE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_embedding.NOBE.NOBE_GA.html">easygraph.functions.graph_embedding.NOBE.NOBE_GA</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/structural_hole_spanners.html">Structural Hole Spanners</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.HIS.get_structural_holes_HIS.html">easygraph.functions.structural_holes.HIS.get_structural_holes_HIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.MaxD.get_structural_holes_MaxD.html">easygraph.functions.structural_holes.MaxD.get_structural_holes_MaxD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.AP_Greedy.common_greedy.html">easygraph.functions.structural_holes.AP_Greedy.common_greedy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.AP_Greedy.AP_Greedy.html">easygraph.functions.structural_holes.AP_Greedy.AP_Greedy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.ICC.ICC.html">easygraph.functions.structural_holes.ICC.ICC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.ICC.BICC.html">easygraph.functions.structural_holes.ICC.BICC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.ICC.AP_BICC.html">easygraph.functions.structural_holes.ICC.AP_BICC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.HAM.get_structural_holes_HAM.html">easygraph.functions.structural_holes.HAM.get_structural_holes_HAM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.NOBE.NOBE_SH.html">easygraph.functions.structural_holes.NOBE.NOBE_SH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.NOBE.NOBE_GA_SH.html">easygraph.functions.structural_holes.NOBE.NOBE_GA_SH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.weakTie.weakTie.html">easygraph.functions.structural_holes.weakTie.weakTie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.weakTie.weakTieLocal.html">easygraph.functions.structural_holes.weakTie.weakTieLocal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.effective_size.html">easygraph.functions.structural_holes.evaluation.effective_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.efficiency.html">easygraph.functions.structural_holes.evaluation.efficiency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.constraint.html">easygraph.functions.structural_holes.evaluation.constraint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.structural_holes.evaluation.hierarchy.html">easygraph.functions.structural_holes.evaluation.hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/datasets.html">Datasets</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/drawing.html">Drawing</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.drawing.draw_SHS_center.html">easygraph.functions.drawing.drawing.draw_SHS_center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.drawing.draw_SHS_center_kk.html">easygraph.functions.drawing.drawing.draw_SHS_center_kk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.drawing.draw_kamada_kawai.html">easygraph.functions.drawing.drawing.draw_kamada_kawai</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Followers.html">easygraph.functions.drawing.plot.plot_Followers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Connected_Communities.html">easygraph.functions.drawing.plot.plot_Connected_Communities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Betweenness_Centrality.html">easygraph.functions.drawing.plot.plot_Betweenness_Centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.plot.plot_Neighborhood_Followers.html">easygraph.functions.drawing.plot.plot_Neighborhood_Followers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.random_position.html">easygraph.functions.drawing.positioning.random_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.circular_position.html">easygraph.functions.drawing.positioning.circular_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.shell_position.html">easygraph.functions.drawing.positioning.shell_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.rescale_position.html">easygraph.functions.drawing.positioning.rescale_position</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.drawing.positioning.kamada_kawai_layout.html">easygraph.functions.drawing.positioning.kamada_kawai_layout</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/readwrite/index.html">Reading and writing graphs</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/gexf.html">GEXF</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.read_gexf.html">easygraph.readwrite.gexf.read_gexf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.write_gexf.html">easygraph.readwrite.gexf.write_gexf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.generate_gexf.html">easygraph.readwrite.gexf.generate_gexf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gexf.relabel_gexf_graph.html">easygraph.readwrite.gexf.relabel_gexf_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/gml.html">GML</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.read_gml.html">easygraph.readwrite.gml.read_gml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.write_gml.html">easygraph.readwrite.gml.write_gml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.parse_gml.html">easygraph.readwrite.gml.parse_gml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.gml.generate_gml.html">easygraph.readwrite.gml.generate_gml</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/graphml.html">GraphML</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.read_graphml.html">easygraph.readwrite.graphml.read_graphml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.write_graphml.html">easygraph.readwrite.graphml.write_graphml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.generate_graphml.html">easygraph.readwrite.graphml.generate_graphml</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphml.parse_graphml.html">easygraph.readwrite.graphml.parse_graphml</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/graphviz.html">graphviz</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.write_dot.html">easygraph.readwrite.graphviz.write_dot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.read_dot.html">easygraph.readwrite.graphviz.read_dot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.from_agraph.html">easygraph.readwrite.graphviz.from_agraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.graphviz.to_agraph.html">easygraph.readwrite.graphviz.to_agraph</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../reference/readwrite/ucinet.html">Ucinet</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.generate_ucinet.html">easygraph.readwrite.ucinet.generate_ucinet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.read_ucinet.html">easygraph.readwrite.ucinet.read_ucinet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.parse_ucinet.html">easygraph.readwrite.ucinet.parse_ucinet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../reference/readwrite/generated/easygraph.readwrite.ucinet.write_ucinet.html">easygraph.readwrite.ucinet.write_ucinet</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/centrality.html">Centrality</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.betweenness.betweenness_centrality.html">easygraph.functions.centrality.betweenness.betweenness_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.degree.degree_centrality.html">easygraph.functions.centrality.degree.degree_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.degree.in_degree_centrality.html">easygraph.functions.centrality.degree.in_degree_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.degree.out_degree_centrality.html">easygraph.functions.centrality.degree.out_degree_centrality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.centrality.flowbetweenness.flowbetweenness_centrality.html">easygraph.functions.centrality.flowbetweenness.flowbetweenness_centrality</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/graph_generator.html">Graph Generator</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_M.html">easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_M</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_P.html">easygraph.functions.graph_generator.RandomNetwork.erdos_renyi_P</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.fast_erdos_renyi_P.html">easygraph.functions.graph_generator.RandomNetwork.fast_erdos_renyi_P</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.RandomNetwork.WS_Random.html">easygraph.functions.graph_generator.RandomNetwork.WS_Random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.classic.empty_graph.html">easygraph.functions.graph_generator.classic.empty_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.classic.path_graph.html">easygraph.functions.graph_generator.classic.path_graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.functions.graph_generator.classic.complete_graph.html">easygraph.functions.graph_generator.classic.complete_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/not_sorted.html">Not Sorted</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/nn.html">NN</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.common.html">easygraph.nn.convs.common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hgnn_conv.html">easygraph.nn.convs.hypergraphs.hgnn_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.dhcf_conv.html">easygraph.nn.convs.hypergraphs.dhcf_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hgnnp_conv.html">easygraph.nn.convs.hypergraphs.hgnnp_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hnhn_conv.html">easygraph.nn.convs.hypergraphs.hnhn_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.hypergcn_conv.html">easygraph.nn.convs.hypergraphs.hypergcn_conv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.nn.convs.hypergraphs.unignn_conv.html">easygraph.nn.convs.hypergraphs.unignn_conv</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../reference/model.html">Model</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hgnn.html">easygraph.model.hypergraphs.hgnn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hgnnp.html">easygraph.model.hypergraphs.hgnnp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hnhn.html">easygraph.model.hypergraphs.hnhn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.hypergcn.html">easygraph.model.hypergraphs.hypergcn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.dhcf.html">easygraph.model.hypergraphs.dhcf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../reference/generated/easygraph.model.hypergraphs.unignn.html">easygraph.model.hypergraphs.unignn</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Tutorial Videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributorGuide.html">Contributor Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sourcecode.html">Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../aboutus.html">About Us</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="module-easygraph.classes.multigraph">
+<span id="easygraph-classes-multigraph-module"></span><h1>easygraph.classes.multigraph module<a class="headerlink" href="#module-easygraph.classes.multigraph" title="Permalink to this headline"></a></h1>
+<p>Base class for MultiGraph.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">easygraph.classes.multigraph.</span></span><span class="sig-name descname"><span class="pre">MultiGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incoming_graph_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multigraph_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="easygraph.classes.graph.html#easygraph.classes.graph.Graph" title="easygraph.classes.graph.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">easygraph.classes.graph.Graph</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>A</strong></dt><dd></dd>
+<dt><strong>D_v</strong></dt><dd></dd>
+<dt><strong>D_v_neg_1_2</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">L_GCN</span></code></dt><dd><p>Return the GCN Laplacian matrix <span class="math notranslate nohighlight">\(\mathcal{L}_{GCN}\)</span> of the graph with <code class="docutils literal notranslate"><span class="pre">torch.sparse_coo_tensor</span></code> format.</p>
+</dd>
+<dt><strong>adj</strong></dt><dd></dd>
+<dt><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.degree" title="easygraph.classes.multigraph.MultiGraph.degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">degree</span></code></a></dt><dd><p>Returns the weighted degree of of each node.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">e</span></code></dt><dd><p>Return the edge list and weight list in the graph.</p>
+</dd>
+<dt><strong>e_both_side</strong></dt><dd></dd>
+<dt><strong>edges</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p>String identifier of the graph.</p>
+</dd>
+<dt><strong>ndata</strong></dt><dd></dd>
+<dt><strong>node2index</strong></dt><dd></dd>
+<dt><strong>nodes</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="table-wrapper longtable docutils container">
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">N_v</span></code>(v_idx)</p></td>
+<td><p>Return the neighbors of the vertex <code class="docutils literal notranslate"><span class="pre">v_idx</span></code> with <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.add_edge" title="easygraph.classes.multigraph.MultiGraph.add_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edge</span></code></a>(u_for_edge, v_for_edge[, key])</p></td>
+<td><p>Add an edge between u and v.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edges</span></code>(edges_for_adding[, edges_attr])</p></td>
+<td><p>Add a list of edges.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.add_edges_from" title="easygraph.classes.multigraph.MultiGraph.add_edges_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edges_from</span></code></a>(ebunch_to_add, **attr)</p></td>
+<td><p>Add all the edges in ebunch_to_add.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edges_from_file</span></code>(file[, weighted])</p></td>
+<td><p>Added edges from file For example, txt files,</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_extra_selfloop</span></code>()</p></td>
+<td><p>Add extra selfloops to the graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_node</span></code>(node_for_adding, **node_attr)</p></td>
+<td><p>Add one node</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_nodes</span></code>(nodes_for_adding[, nodes_attr])</p></td>
+<td><p>Add nodes with a list of nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_nodes_from</span></code>(nodes_for_adding, **attr)</p></td>
+<td><p>Add multiple nodes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_weighted_edges_from</span></code>(ebunch_to_add[, weight])</p></td>
+<td><p>Add weighted edges in <cite>ebunch_to_add</cite> with specified weight attr</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjlist_inner_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjlist_outer_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_neighbors</span></code>(node)</p></td>
+<td><p>Returns an iterator of a node's neighbors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">clone</span></code>()</p></td>
+<td><p>Clone the graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.copy" title="easygraph.classes.multigraph.MultiGraph.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Returns a copy of the graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_attr_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.edge_key_dict_factory" title="easygraph.classes.multigraph.MultiGraph.edge_key_dict_factory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_key_dict_factory</span></code></a></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ego_subgraph</span></code>(center)</p></td>
+<td><p>Returns an ego network graph of a node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.get_edge_data" title="easygraph.classes.multigraph.MultiGraph.get_edge_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_edge_data</span></code></a>(u, v[, key, default])</p></td>
+<td><p>Returns the attribute dictionary associated with edge (u, v).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">gnn_data_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph_attr_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.has_edge" title="easygraph.classes.multigraph.MultiGraph.has_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_edge</span></code></a>(u, v[, key])</p></td>
+<td><p>Returns True if the graph has an edge between nodes u and v.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.is_directed" title="easygraph.classes.multigraph.MultiGraph.is_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_directed</span></code></a>()</p></td>
+<td><p>Returns True if graph is directed, False otherwise.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.is_multigraph" title="easygraph.classes.multigraph.MultiGraph.is_multigraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_multigraph</span></code></a>()</p></td>
+<td><p>Returns True if graph is a multigraph, False otherwise.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbr_v</span></code>(v_idx)</p></td>
+<td><p>Return a vertex list of the neighbors of the vertex <code class="docutils literal notranslate"><span class="pre">v_idx</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nbunch_iter</span></code>([nbunch])</p></td>
+<td><p>Returns an iterator over nodes contained in nbunch that are also in the graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">neighbors</span></code>(node)</p></td>
+<td><p>Returns an iterator of a node's neighbors.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.new_edge_key" title="easygraph.classes.multigraph.MultiGraph.new_edge_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_edge_key</span></code></a>(u, v)</p></td>
+<td><p>Returns an unused key for edges between nodes <cite>u</cite> and <cite>v</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_attr_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">node_dict_factory</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodes_subgraph</span></code>(from_nodes)</p></td>
+<td><p>Returns a subgraph of some nodes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.number_of_edges" title="easygraph.classes.multigraph.MultiGraph.number_of_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_edges</span></code></a>([u, v])</p></td>
+<td><p>Returns the number of edges between two nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_nodes</span></code>()</p></td>
+<td><p>Returns the number of nodes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">order</span></code>()</p></td>
+<td><p>Returns the number of nodes in the graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">raw_selfloop_dict</span></code></p></td>
+<td><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.remove_edge" title="easygraph.classes.multigraph.MultiGraph.remove_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_edge</span></code></a>(u, v[, key])</p></td>
+<td><p>Remove an edge between u and v.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_edges</span></code>(edges_to_remove)</p></td>
+<td><p>Remove a list of edges from your graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.remove_edges_from" title="easygraph.classes.multigraph.MultiGraph.remove_edges_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_edges_from</span></code></a>(ebunch)</p></td>
+<td><p>Remove all edges specified in ebunch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_extra_selfloop</span></code>()</p></td>
+<td><p>Remove extra selfloops from the graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_node</span></code>(node_to_remove)</p></td>
+<td><p>Remove one node from your graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_nodes</span></code>(nodes_to_remove)</p></td>
+<td><p>Remove nodes from your graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_nodes_from</span></code>(nodes)</p></td>
+<td><p>Remove multiple nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_selfloop</span></code>()</p></td>
+<td><p>Remove all selfloops from the graph.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code>([weight])</p></td>
+<td><p>Returns the number of edges or total of all edge weights.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">smoothing_with_GCN</span></code>(X[, drop_rate])</p></td>
+<td><p>Return the smoothed feature matrix with GCN Laplacian matrix <span class="math notranslate nohighlight">\(\mathcal{L}_{GCN}\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.to_directed" title="easygraph.classes.multigraph.MultiGraph.to_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_directed</span></code></a>()</p></td>
+<td><p>Returns a directed representation of the graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_directed_class</span></code>()</p></td>
+<td><p>Returns the class to use for empty directed copies.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_index_node_graph</span></code>([begin_index])</p></td>
+<td><p>Returns a deep copy of graph, with each node switched to its index.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 74%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>add_weighted_edge</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>cpp</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>from_hypergraph_hypergcn</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>has_node</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.add_edge">
+<span class="sig-name descname"><span class="pre">add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_for_edge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_for_edge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.add_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.add_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Add an edge between u and v.</p>
+<p>The nodes u and v will be automatically added if they are
+not already in the graph.</p>
+<p>Edge attributes can be specified with keywords or by directly
+accessing the edge’s attribute dictionary. See examples below.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u_for_edge</strong> (<em>nodes</em>) – Nodes can be, for example, strings or numbers.
+Nodes must be hashable (and not None) Python objects.</p></li>
+<li><p><strong>v_for_edge</strong> (<em>nodes</em>) – Nodes can be, for example, strings or numbers.
+Nodes must be hashable (and not None) Python objects.</p></li>
+<li><p><strong>key</strong> (<em>hashable identifier</em><em>, </em><em>optional</em><em> (</em><em>default=lowest unused integer</em><em>)</em>) – Used to distinguish multiedges between a pair of nodes.</p></li>
+<li><p><strong>attr</strong> (<em>keyword arguments</em><em>, </em><em>optional</em>) – Edge data (or labels or objects) can be assigned using
+keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The edge key assigned to the edge.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.add_edges_from" title="easygraph.classes.multigraph.MultiGraph.add_edges_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edges_from</span></code></a></dt><dd><p>add a collection of edges</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>To replace/update edge data, use the optional key argument
+to identify a unique edge.  Otherwise a new edge will be created.</p>
+<p>EasyGraph algorithms designed for weighted graphs cannot use
+multigraphs directly because it is not clear how to handle
+multiedge weights.  Convert to Graph using edge attribute
+‘weight’ to enable weighted graph algorithms.</p>
+<p>Default keys are generated using the method <cite>new_edge_key()</cite>.
+This method can be overridden by subclassing the base class and
+providing a custom <cite>new_edge_key()</cite> method.</p>
+<p class="rubric">Examples</p>
+<p>The following all add the edge e=(1, 2) to graph G:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ekey</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># explicit two-node form</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># single edge as tuple of two nodes</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>  <span class="c1"># add edges from iterable container</span>
+<span class="go">[2]</span>
+</pre></div>
+</div>
+<p>Associate data to edges using keywords:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ekey</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ekey</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># update data for key=0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ekey</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">342.7</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For non-string attribute keys, use subscript notation.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ekey</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.add_edges_from">
+<span class="sig-name descname"><span class="pre">add_edges_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ebunch_to_add</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.add_edges_from"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.add_edges_from" title="Permalink to this definition"></a></dt>
+<dd><p>Add all the edges in ebunch_to_add.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ebunch_to_add</strong> (<em>container of edges</em>) – <p>Each edge given in the container will be added to the
+graph. The edges can be:</p>
+<blockquote>
+<div><ul>
+<li><p>2-tuples (u, v) or</p></li>
+<li><p>3-tuples (u, v, d) for an edge data dict d, or</p></li>
+<li><p>3-tuples (u, v, k) for not iterable key k, or</p></li>
+<li><p>4-tuples (u, v, k, d) for an edge with data and key k</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>attr</strong> (<em>keyword arguments</em><em>, </em><em>optional</em>) – Edge data (or labels or objects) can be assigned using
+keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>A list of edge keys assigned to the edges in <cite>ebunch</cite>.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.add_edge" title="easygraph.classes.multigraph.MultiGraph.add_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_edge</span></code></a></dt><dd><p>add a single edge</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_weighted_edges_from</span></code></dt><dd><p>convenient way to add weighted edges</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Adding the same edge twice has no effect but any edge data
+will be updated when each duplicate edge is added.</p>
+<p>Edge attributes specified in an ebunch take precedence over
+attributes specified via keyword arguments.</p>
+<p>Default keys are generated using the method <code class="docutils literal notranslate"><span class="pre">new_edge_key()</span></code>.
+This method can be overridden by subclassing the base class and
+providing a custom <code class="docutils literal notranslate"><span class="pre">new_edge_key()</span></code> method.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or DiGraph, MultiGraph, MultiDiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>  <span class="c1"># using a list of edge tuples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># Add the path graph 0-1-2-3</span>
+</pre></div>
+</div>
+<p>Associate data to edges</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span> <span class="n">weight</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;WN2898&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a copy of the graph.</p>
+<p>The copy method by default returns an independent shallow copy
+of the graph and attributes. That is, if an attribute is a
+container, that container is shared by the original an the copy.
+Use Python’s <cite>copy.deepcopy</cite> for new containers.</p>
+<p class="rubric">Notes</p>
+<p>All copies reproduce the graph structure, but data attributes
+may be handled in different ways. There are four types of copies
+of a graph that people might want.</p>
+<p>Deepcopy – A “deepcopy” copies the graph structure as well as
+all data attributes and any objects they might contain.
+The entire graph object is new so that changes in the copy
+do not affect the original object. (see Python’s copy.deepcopy)</p>
+<p>Data Reference (Shallow) – For a shallow copy the graph structure
+is copied but the edge, node and graph attribute dicts are
+references to those in the original graph. This saves
+time and memory but could cause confusion if you change an attribute
+in one graph and it changes the attribute in the other.
+EasyGraph does not provide this level of shallow copy.</p>
+<p>Independent Shallow – This copy creates new independent attribute
+dicts and then does a shallow copy of the attributes. That is, any
+attributes that are containers are shared between the new graph
+and the original. This is exactly what <cite>dict.copy()</cite> provides.
+You can obtain this style copy using:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Fresh Data – For fresh data, the graph structure is copied while
+new empty data attribute dicts are created. The resulting graph
+is independent of the original and it has no edge, node or graph
+attributes. Fresh copies are not enabled. Instead use:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="vm">__class__</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See the Python copy module for more information on shallow
+and deep copies, <a class="reference external" href="https://docs.python.org/3/library/copy.html">https://docs.python.org/3/library/copy.html</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>G</strong> – A copy of the graph.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="easygraph.classes.graph.html#easygraph.classes.graph.Graph" title="easygraph.classes.graph.Graph">Graph</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.to_directed" title="easygraph.classes.multigraph.MultiGraph.to_directed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_directed</span></code></a></dt><dd><p>return a directed copy of the graph.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># or DiGraph, MultiGraph, MultiDiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">degree</span></span><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.degree" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the weighted degree of of each node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weight</strong> (<em>string</em><em>, </em><em>optional</em><em> (</em><em>default: 'weight'</em><em>)</em>) – Weight key of the original weighted graph.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>degree</strong> – Each node’s (key) weighted degree (value).</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If the graph is not weighted, all the weights will be regarded as 1.</p>
+<p class="rubric">Examples</p>
+<p>You can call with no attributes, if ‘weight’ is the weight key:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>if you have customized weight key ‘weight_1’.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;weight_1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.edge_key_dict_factory">
+<span class="sig-name descname"><span class="pre">edge_key_dict_factory</span></span><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.edge_key_dict_factory" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.edges" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.get_edge_data">
+<span class="sig-name descname"><span class="pre">get_edge_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.get_edge_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.get_edge_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the attribute dictionary associated with edge (u, v).</p>
+<p>This is identical to <cite>G[u][v][key]</cite> except the default is returned
+instead of an exception is the edge doesn’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>nodes</em>) – </p></li>
+<li><p><strong>v</strong> (<em>nodes</em>) – </p></li>
+<li><p><strong>default</strong> (<em>any Python object</em><em> (</em><em>default=None</em><em>)</em>) – Value to return if the edge (u, v) is not found.</p></li>
+<li><p><strong>key</strong> (<em>hashable identifier</em><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – Return data only for the edge with specified key.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>edge_dict</strong> – The edge attribute dictionary.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>  <span class="c1"># or MultiDiGraph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">key</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>  <span class="c1"># key=&#39;a&#39;</span>
+<span class="go">{&#39;weight&#39;: 7}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">]</span>  <span class="c1"># key=&#39;a&#39;</span>
+<span class="go">{&#39;weight&#39;: 7}</span>
+</pre></div>
+</div>
+<p>Warning: we protect the graph data structure by making
+<cite>G.edges</cite> and <cite>G[1][2]</cite> read-only dict-like structures.
+However, you can assign values to attributes in e.g.
+<cite>G.edges[1, 2, ‘a’]</cite> or <cite>G[1][2][‘a’]</cite> using an additional
+bracket as shown next. You need to specify all edge info
+to assign to the edge data associated with an edge.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;a&quot;</span><span class="p">][</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">][</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;a&quot;</span><span class="p">][</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">][</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span>
+<span class="go">10</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>  <span class="c1"># or MultiDiGraph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">complete_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">eg</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">get_edge_data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">{0: {}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">get_edge_data</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># tuple form</span>
+<span class="go">{0: {}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">get_edge_data</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># edge not in graph, return 0</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.has_edge">
+<span class="sig-name descname"><span class="pre">has_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.has_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.has_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Returns True if the graph has an edge between nodes u and v.</p>
+<p>This is the same as <cite>v in G[u] or key in G[u][v]</cite>
+without KeyError exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>nodes</em>) – Nodes can be, for example, strings or numbers.</p></li>
+<li><p><strong>v</strong> (<em>nodes</em>) – Nodes can be, for example, strings or numbers.</p></li>
+<li><p><strong>key</strong> (<em>hashable identifier</em><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – If specified return True only if the edge with
+key is found.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>edge_ind</strong> – True if edge is in the graph, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Can be called either using two nodes u, v, an edge tuple (u, v),
+or an edge tuple (u, v, key).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>  <span class="c1"># or MultiDiGraph</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">complete_graph</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">eg</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># using two nodes</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>  <span class="c1">#  e is a 2-tuple (u, v)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="go">&#39;a&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>  <span class="c1"># specify key</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># e is a 3-tuple (u, v, &#39;a&#39;)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The following syntax are equivalent:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># though this gives :exc:`KeyError` if 0 not in G</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.is_directed">
+<span class="sig-name descname"><span class="pre">is_directed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.is_directed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.is_directed" title="Permalink to this definition"></a></dt>
+<dd><p>Returns True if graph is directed, False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.is_multigraph">
+<span class="sig-name descname"><span class="pre">is_multigraph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.is_multigraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.is_multigraph" title="Permalink to this definition"></a></dt>
+<dd><p>Returns True if graph is a multigraph, False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.new_edge_key">
+<span class="sig-name descname"><span class="pre">new_edge_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.new_edge_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.new_edge_key" title="Permalink to this definition"></a></dt>
+<dd><p>Returns an unused key for edges between nodes <cite>u</cite> and <cite>v</cite>.</p>
+<p>The nodes <cite>u</cite> and <cite>v</cite> do not need to be already in the graph.</p>
+<p class="rubric">Notes</p>
+<p>In the standard MultiGraph class the new key is the number of existing
+edges between <cite>u</cite> and <cite>v</cite> (increased if necessary to ensure unused).
+The first edge will have key 0, then 1, etc. If an edge is removed
+further new_edge_keys may not be in this order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>nodes</em>) – </p></li>
+<li><p><strong>v</strong> (<em>nodes</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>key</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.number_of_edges">
+<span class="sig-name descname"><span class="pre">number_of_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.number_of_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.number_of_edges" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of edges between two nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>nodes</em><em>, </em><em>optional</em><em> (</em><em>Gefault=all edges</em><em>)</em>) – If u and v are specified, return the number of edges between
+u and v. Otherwise return the total number of all edges.</p></li>
+<li><p><strong>v</strong> (<em>nodes</em><em>, </em><em>optional</em><em> (</em><em>Gefault=all edges</em><em>)</em>) – If u and v are specified, return the number of edges between
+u and v. Otherwise return the total number of all edges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>nedges</strong> – The number of edges in the graph.  If nodes <cite>u</cite> and <cite>v</cite> are
+specified return the number of edges between those nodes. If
+the graph is directed, this only returns the number of edges
+from <cite>u</cite> to <cite>v</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code></p>
+</div>
+<p class="rubric">Examples</p>
+<p>For undirected multigraphs, this method counts the total number
+of edges in the graph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="go">[0, 1, 0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>If you specify two nodes, this counts the total number of edges
+joining the two nodes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>For directed multigraphs, this method can count the total number
+of directed edges from <cite>u</cite> to <cite>v</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiDiGraph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+<span class="go">[0, 1, 0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.remove_edge">
+<span class="sig-name descname"><span class="pre">remove_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.remove_edge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.remove_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Remove an edge between u and v.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>nodes</em>) – Remove an edge between nodes u and v.</p></li>
+<li><p><strong>v</strong> (<em>nodes</em>) – Remove an edge between nodes u and v.</p></li>
+<li><p><strong>key</strong> (<em>hashable identifier</em><em>, </em><em>optional</em><em> (</em><em>default=None</em><em>)</em>) – Used to distinguish multiple edges between a pair of nodes.
+If None remove a single (arbitrary) edge between u and v.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="easygraph.utils.exception.html#easygraph.utils.exception.EasyGraphError" title="easygraph.utils.exception.EasyGraphError"><strong>EasyGraphError</strong></a> – If there is not an edge between u and v, or
+if there is no edge with the specified key.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.remove_edges_from" title="easygraph.classes.multigraph.MultiGraph.remove_edges_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_edges_from</span></code></a></dt><dd><p>remove a collection of edges</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>For multiple edges</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>  <span class="c1"># or MultiDiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>  <span class="c1"># key_list returned</span>
+<span class="go">[0, 1, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># remove a single (arbitrary) edge</span>
+</pre></div>
+</div>
+<p>For edges with keys</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>  <span class="c1"># or MultiDiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">)</span>
+<span class="go">&#39;first&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;second&quot;</span><span class="p">)</span>
+<span class="go">&#39;second&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s2">&quot;second&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.remove_edges_from">
+<span class="sig-name descname"><span class="pre">remove_edges_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ebunch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.remove_edges_from"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.remove_edges_from" title="Permalink to this definition"></a></dt>
+<dd><p>Remove all edges specified in ebunch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ebunch</strong> (<em>list</em><em> or </em><em>container of edge tuples</em>) – <p>Each edge given in the list or container will be removed
+from the graph. The edges can be:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>2-tuples (u, v) All edges between u and v are removed.</p></li>
+<li><p>3-tuples (u, v, key) The edge identified by key is removed.</p></li>
+<li><p>4-tuples (u, v, key, data) where data is ignored.</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#easygraph.classes.multigraph.MultiGraph.remove_edge" title="easygraph.classes.multigraph.MultiGraph.remove_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_edge</span></code></a></dt><dd><p>remove a single edge</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Will fail silently if an edge in ebunch is not in the graph.</p>
+<p class="rubric">Examples</p>
+<p>Removing multiple copies of edges</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">MultiGraph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">keys</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+<span class="go">[(1, 2)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>  <span class="c1"># silently ignore extra copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>  <span class="c1"># now empty graph</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easygraph.classes.multigraph.MultiGraph.to_directed">
+<span class="sig-name descname"><span class="pre">to_directed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/easygraph/classes/multigraph.html#MultiGraph.to_directed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easygraph.classes.multigraph.MultiGraph.to_directed" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a directed representation of the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>G</strong> – A directed graph with the same name, same nodes, and with
+each edge (u, v, data) replaced by two directed edges
+(u, v, data) and (v, u, data).</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="easygraph.classes.directed_multigraph.html#easygraph.classes.directed_multigraph.MultiDiGraph" title="easygraph.classes.directed_multigraph.MultiDiGraph">MultiDiGraph</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This returns a “deepcopy” of the edge, node, and
+graph attributes which attempts to completely copy
+all of the data and references.</p>
+<p>This is in contrast to the similar D=DiGraph(G) which returns a
+shallow copy of the data.</p>
+<p>See the Python copy module for more information on shallow
+and deep copies, <a class="reference external" href="https://docs.python.org/3/library/copy.html">https://docs.python.org/3/library/copy.html</a>.</p>
+<p>Warning: If you have subclassed MultiGraph to use dict-like objects
+in the data structure, those changes do not transfer to the
+MultiDiGraph created by this method.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># or MultiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">to_directed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
+<span class="go">[(0, 1), (1, 0)]</span>
+</pre></div>
+</div>
+<p>If already directed, return a (deep) copy</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">G</span> <span class="o">=</span> <span class="n">eg</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>  <span class="c1"># or MultiDiGraph, etc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">to_directed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
+<span class="go">[(0, 1)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Mobile Systems and Networking Group, Fudan University
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>
