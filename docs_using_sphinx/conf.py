@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+from sphinx.ext.autodoc import between
 import os
 import sys
 sys.path.append(os.path.abspath('sphinxext'))
@@ -66,8 +67,8 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 latex_engine = "xelatex"
 # The paper size ('letter' or 'a4').
 latex_paper_size = "letter"
-autoclass_content = 'class'
 # -- Options for HTML output -------------------------------------------------
+
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -93,3 +94,4 @@ html_title = "EasyGraph 0.2"
 def setup(app):
     app.add_js_file("copybutton.js")
     app.add_css_file('my_theme.css')
+    # app.connect('autodoc-process-docstring', between('^.*IGNORE.*$', exclude=True))

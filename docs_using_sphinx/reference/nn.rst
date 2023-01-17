@@ -3,16 +3,31 @@ NN
 
 EasyGraph implemented Hypergraph nn methods for use.
 
-convs
---------------------
+Convs
+--------
 .. automodule:: easygraph.nn.convs
+    :members: common
 .. autosummary::
     :toctree: generated/
 
     common
-    hypergraphs.hgnn_conv
-    hypergraphs.dhcf_conv
-    hypergraphs.hgnnp_conv
-    hypergraphs.hnhn_conv
-    hypergraphs.hypergcn_conv
-    hypergraphs.unignn_conv
+
+Convs.hypergraphs
+--------
+.. automodule:: easygraph.nn.convs.hypergraphs
+    :members:   dhcf_conv,
+                hgnn_conv,
+                hgnnp_conv,
+                hnhn_conv,
+                hypergcn_conv,
+                unignn_conv
+
+.. autosummary::
+    :toctree: generated/
+
+            dhcf_conv
+            hgnn_conv
+            hgnnp_conv
+            hnhn_conv
+            hypergcn_conv
+            unignn_conv

@@ -5,13 +5,15 @@ EasyGraph implemented models for use.
 
 hypergraphs
 --------------------
-.. automodule:: easygraph.model
+.. automodule:: easygraph.model.hypergraphs
+    :members: hgnn, hgnnp, hnhn, hypergcn, dhcf, unignn
+
 .. autosummary::
     :toctree: generated/
 
-    hypergraphs.hgnn
-    hypergraphs.hgnnp
-    hypergraphs.hnhn
-    hypergraphs.hypergcn
-    hypergraphs.dhcf
-    hypergraphs.unignn
+    hgnn
+    hgnnp
+    hnhn
+    hypergcn
+    dhcf
+    unignn
