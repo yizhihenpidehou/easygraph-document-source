@@ -298,6 +298,20 @@ tensor([[1., 1., 1., 0., 0., 0., 0., 0., 0.],
 
 .. image:: hypergraph2.png
 
+Construct a hypergraph from a graph using the eg.Hypergraph.from_graph() function
+
+>>> g = eg.Graph()
+>>> g.add_edges([(0, 1), (1, 2), (2, 3), (1, 4)])
+>>> hg = eg.Hypergraph.from_graph(g)
+>>> hg.e
+([(0, 1), (1, 2), (1, 4), (2, 3)], [1.0, 1.0, 1.0, 1.0])
+>>> hg.H.to_dense()
+tensor([[1., 0., 0., 0.],
+        [1., 1., 1., 0.],
+        [0., 1., 0., 1.],
+        [0., 0., 0., 1.],
+        [0., 0., 1., 0.]])
+
 Using C++ code to achieve a better performance
 -------------------------
 
